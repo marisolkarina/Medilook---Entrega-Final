@@ -81,6 +81,7 @@ router.delete("/:pid", async (req, res) => {
 router.put("/:pid",  multer({ storage: storage, fileFilter: fileFilter }).single("image"), async (req, res) => {
     try {
         const { pid } = req.params;
+        
         const prod = {
             ...req.body,
             ...(req?.file?.path && { urlImagen: req.file.path.split('public')[1] })

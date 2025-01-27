@@ -1,3 +1,5 @@
+import deleteFile from '../utils/file.js'
+
 export class productManager {
     constructor(model) {
         this.model = model;
@@ -33,7 +35,12 @@ export class productManager {
 
     async update(producto, id) {
         try {
+            // borro la imagen anterior cuando actualizo producto
+            let productoAnterior = await this.model.findById(id);
+            deleteFile('src/public/'+productoAnterior.urlImagen);
+
             let productoActualizar = await this.model.findByIdAndUpdate(id, producto, {new: true});
+
             if (!productoActualizar) throw new Error("El producto no existe");
             return productoActualizar;
         } catch (err) {
@@ -43,6 +50,10 @@ export class productManager {
 
     async delete(id) {
         try {
+            // borro su imagen cuando elimino un producto
+            let productoAnterior = await this.model.findById(id);
+            deleteFile('src/public/'+productoAnterior.urlImagen);
+
             const productoEliminar = await this.model.findByIdAndDelete(id);
             if (!productoEliminar) throw new Error("El producto no existe");
             return productoEliminar;
