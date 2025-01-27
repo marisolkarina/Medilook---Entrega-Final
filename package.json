@@ -1,0 +1,29 @@
+{
+  "name": "primera-entrega",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marisolkarina/Medilook.git"
+  },
+  "author": "Marisol Pachauri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marisolkarina/Medilook/issues"
+  },
+  "homepage": "https://github.com/marisolkarina/Medilook#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-handlebars": "^8.0.1",
+    "mongoose": "^8.9.5",
+    "multer": "^1.4.5-lts.1",
+    "socket.io": "^4.8.1"
+  }
+}

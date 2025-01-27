@@ -1,0 +1,230 @@
+<main class="container">
+    <h1 class="text-center">Medilook - uniformes médicos</h1>
+    <h3 class="text-center">Productos en tiempo real</h3>
+    <div id="products-container-rtp" class="row d-flex justify-content-center"></div>
+
+    <h3>Crear producto</h3>
+
+    <form
+        class="border border-primary rounded-2 w-80 p-4"
+        id="formCrearProducto"
+        enctype="multipart/form-data"
+        action="/realtimeproducts"
+        method="POST" class="p-4 border rounded">
+        <!-- Campo Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <input
+                class="form-control"
+                type="text" name="title" id="title"
+                value="">
+        </div>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Código</label>
+            <input
+                class="form-control"
+                type="text" name="code" id="code">
+        </div>
+
+        <!-- Campo image -->
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen</label>
+            <input type="file" name="image" id="image" class="btn btn-outline-warning">
+        </div>
+
+        <!-- Campo Precio -->
+        <div class="mb-3">
+            <label for="price" class="form-label">Precio</label>
+            <input
+                class="form-control"
+                type="number" name="price" id="price" step="0.01"
+                value="">
+        </div>
+
+        <!-- Campo Stock -->
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input
+                class="form-control"
+                type="number" name="stock" id="stock" step="1"
+                value="">
+        </div>
+
+        <!-- Campo Categoria -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Categoría</label>
+
+            <select name="category" id="category" class="form-select">
+                <option value="" selected>Elija una categoria</option>
+                <option value="chaqueta">Chaqueta</option>
+                <option value="pantalon">Pantalón</option>
+                <option value="gorro">Gorro</option>
+            </select>
+        </div>
+
+        <!-- Campo Color -->
+        <div class="mb-3">
+            <label for="color" class="form-label">Color</label>
+
+            <select name="color" id="color" class="form-select">
+                <option value="" selected>Elija un color</option>
+                <option value="azul">Azul</option>
+                <option value="verde">Verde</option>
+                <option value="rosado">Rosado</option>
+                <option value="blanco">Blanco</option>
+                <option value="negro">Negro</option>
+            </select>
+        </div>
+
+        <!-- Campo Marca -->
+        <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+
+            <select name="marca" id="marca" class="form-select">
+                <option value="" selected>Elija una marca</option>
+                <option value="Cherokee">Cherokee</option>
+                <option value="Dickies">Dickies</option>
+                <option value="Grey's Anatomy">Grey's Anatomy</option>
+            </select>
+        </div>
+
+        <!-- Campo Género -->
+        <div class="mb-3">
+            <label for="gender" class="form-label">Género</label>
+
+            <select name="gender" id="gender" class="form-select">
+                <option value="" selected>Elija un género</option>
+                <option value="f">F</option>
+                <option value="m">M</option>
+            </select>
+        </div>
+
+        <!-- Campo Descripción -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea
+                class="form-control"
+                name="description" id="description"
+                rows="5"></textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit" id="crearProd">Crear Producto</button>
+    </form>
+
+    <h3>Modificar producto</h3>
+    <form
+        class="border border-primary rounded-2 w-80 p-4"
+        id="formModificarProducto"
+        enctype="multipart/form-data"
+        action=""
+        method="POST" class="p-4 border rounded">
+
+        <div class="mb-3">
+            <label for="id2">ID</label>
+            <input type="text" id="id2" class="form-control">
+        </div>
+        <!-- Campo Title -->
+        <div class="mb-3">
+            <label for="title2" class="form-label">Título</label>
+            <input
+                class="form-control"
+                type="text" name="title2" id="title2">
+        </div>
+
+        <div class="mb-3">
+            <label for="code2" class="form-label">Código</label>
+            <input
+                class="form-control"
+                type="text" name="code2" id="code2">
+        </div>
+
+        <!-- Campo image -->
+        <div class="mb-3">
+            <label for="image2" class="form-label">Imagen</label>
+            <input type="file" name="image2" id="image2" class="btn btn-outline-warning">
+        </div>
+
+        <!-- Campo Precio -->
+        <div class="mb-3">
+            <label for="price2" class="form-label">Precio</label>
+            <input
+                class="form-control"
+                type="number" name="price2" id="price2" step="0.01"
+                value="">
+        </div>
+
+        <!-- Campo Stock -->
+        <div class="mb-3">
+            <label for="stock2" class="form-label">Stock</label>
+            <input
+                class="form-control"
+                type="number" name="stock2" id="stock2" step="1"
+                value="">
+        </div>
+
+        <!-- Campo Categoria -->
+        <div class="mb-3">
+            <label for="category2" class="form-label">Categoría</label>
+
+            <select name="category2" id="category2" class="form-select">
+                <option value="" selected>Elija una categoria</option>
+                <option value="chaqueta">Chaqueta</option>
+                <option value="pantalon">Pantalón</option>
+                <option value="gorro">Gorro</option>
+            </select>
+        </div>
+
+        <!-- Campo Color -->
+        <div class="mb-3">
+            <label for="color2" class="form-label">Color</label>
+
+            <select name="color2" id="color2" class="form-select">
+                <option value="" selected>Elija un color</option>
+                <option value="azul">Azul</option>
+                <option value="verde">Verde</option>
+                <option value="rosado">Rosado</option>
+                <option value="blanco">Blanco</option>
+                <option value="negro">Negro</option>
+            </select>
+        </div>
+
+        <!-- Campo Marca -->
+        <div class="mb-3">
+            <label for="marca2" class="form-label">Marca</label>
+
+            <select name="marca2" id="marca2" class="form-select">
+                <option value="" selected>Elija una marca</option>
+                <option value="Cherokee">Cherokee</option>
+                <option value="Dickies">Dickies</option>
+                <option value="Grey's Anatomy">Grey's Anatomy</option>
+            </select>
+        </div>
+
+        <!-- Campo Género -->
+        <div class="mb-3">
+            <label for="gender2" class="form-label">Género</label>
+
+            <select name="gender2" id="gender2" class="form-select">
+                <option value="" selected>Elija un género</option>
+                <option value="f">F</option>
+                <option value="m">M</option>
+            </select>
+        </div>
+
+        <!-- Campo Descripción -->
+        <div class="mb-3">
+            <label for="description2" class="form-label">Descripción</label>
+            <textarea
+                class="form-control"
+                name="description2" id="description2"
+                rows="5"></textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit" id="crearProd">Modificar Producto</button>
+    </form>
+
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./realTimeProducts.js"></script>
