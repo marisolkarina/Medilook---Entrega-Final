@@ -71,14 +71,24 @@ export class productManager {
 
             // no sensible a mayusculas ni minusculas
             if (query) {
-                if (query.gender) filtros.gender = { $regex: query.gender, $options: 'i'}
+                if (query.gender) {
+                    if (query.gender.toLowerCase() === 'f' || query.gender.toLowerCase() === 'm') {
+                        filtros.$or = [
+                            { gender: { $regex: query.gender, $options: 'i' } },
+                            //solo femenino o solo masculino incluye unisex
+                            { gender: { $regex: 'u', $options: 'i' } },
+                        ];
+                    } else {
+                        filtros.gender = { $regex: query.gender, $options: 'i' }
+                    }
+                }
                 if (query.category) filtros.category = { $regex: query.category, $options: 'i'}
                 if (query.marca) filtros.marca = { $regex: query.marca, $options: 'i'}
                 if (query.color) filtros.color = { $regex: query.color, $options: 'i'}
 
                 productosFiltrados = this.model.find(filtros);
             }
-
+            
            /*
             if (order) {
                 if (order === 'alfabeticamente') {
@@ -89,7 +99,7 @@ export class productManager {
                     productosFiltrados = productosFiltrados.sort((prod1, prod2) => prod2.price - prod1.price);
                 }
             }
-*/
+            */
             if (productosFiltrados.length === 0) throw new Error("No hay productos con los filtros indicados.");
             return productosFiltrados;
 
