@@ -62,51 +62,31 @@ export class productManager {
         }
     }
 
-    async filterProducts(query) {
+    async filterProducts(opcion, query) {
         try {
-            const productos = await this.getProducts();
-            let productosFiltrados =  productos;// valor inicial: todos los productos
 
             const filtros = {};
 
-            // no sensible a mayusculas ni minusculas
-            if (query) {
-                if (query.gender) {
-                    if (query.gender.toLowerCase() === 'f' || query.gender.toLowerCase() === 'm') {
-                        filtros.$or = [
-                            { gender: { $regex: query.gender, $options: 'i' } },
-                            //solo femenino o solo masculino incluye unisex
-                            { gender: { $regex: 'u', $options: 'i' } },
-                        ];
-                    } else {
-                        filtros.gender = { $regex: query.gender, $options: 'i' }
-                    }
-                }
-                if (query.category) filtros.category = { $regex: query.category, $options: 'i'}
-                if (query.marca) filtros.marca = { $regex: query.marca, $options: 'i'}
-                if (query.color) filtros.color = { $regex: query.color, $options: 'i'}
-
-                productosFiltrados = this.model.find(filtros);
-            }
-            
-           /*
-            if (order) {
-                if (order === 'alfabeticamente') {
-                    productosFiltrados = productosFiltrados.sort((prod1, prod2) => prod1.title.localeCompare(prod2.title));
-                } else if (order === 'precio-ascendente') {
-                    productosFiltrados = productosFiltrados.sort((prod1, prod2) => prod1.price - prod2.price);
-                } else if (order === 'precio-descendente') {
-                    productosFiltrados = productosFiltrados.sort((prod1, prod2) => prod2.price - prod1.price);
+            if (query.gender) {
+                if (query.gender.toLowerCase() === 'f' || query.gender.toLowerCase() === 'm') {
+                    filtros.$or = [
+                        { gender: { $regex: query.gender, $options: 'i' } },
+                        //solo femenino o solo masculino incluye unisex
+                        { gender: { $regex: 'u', $options: 'i' } },
+                    ];
+                } else {
+                    filtros.gender = { $regex: query.gender, $options: 'i' }
                 }
             }
-            */
-            if (productosFiltrados.length === 0) throw new Error("No hay productos con los filtros indicados.");
-            return productosFiltrados;
+            if (query.category) filtros.category = { $regex: query.category, $options: 'i'}
+            if (query.marca) filtros.marca = { $regex: query.marca, $options: 'i'}
+            if (query.color) filtros.color = { $regex: query.color, $options: 'i'}
 
+            const productos = await this.model.paginate(filtros, opcion)
+
+            return productos;
         } catch (err) {
             throw new Error(err.message);
         }
     }
 }
-
-// export const productManager = new ProductManager(path.join(process.cwd(), "src/data/products.json"));

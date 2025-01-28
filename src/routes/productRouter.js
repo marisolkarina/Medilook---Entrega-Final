@@ -22,19 +22,36 @@ const fileFilter = (req, file, cb) => {
 
 router.get("/", async (req, res) => {
     try {
-        // let { gender, category, marca, color, order } = req.query;
-        const query = req.query;
-
-        // filtra productos por category, marca,color, gender en caso sea necesario
-        // tambien puede ordenar
-        // if (category || gender || marca || color || order) {
-        if (query) {
-            const productosFiltrados = await model.filterProducts(query);
-            return res.status(200).json({ payload: productosFiltrados });
+        const { limit, page, sort, ...query} = req.query;
+        const opcion = {
+            limit: req.query.limit || 10,
+            page: req.query.page || 1,
+            sort: {}
         }
 
-        const productos = await model.getProducts();
-        return res.status(200).json({ payload: productos });
+        if (sort === 'alfa') opcion.sort.title = 1;  // ordenar por titulo alfabeticamente
+        else if (sort === 'asc') opcion.sort.price = 1;  // ordenar por precio ascendentemente
+        else if (sort === 'desc') opcion.sort.price = -1; // ordenar por precio descendentemente
+
+        const result = await model.filterProducts(opcion, query);
+
+        const status = result ? 'success' : 'error';
+
+        const response = {
+            status: status,
+            payload: result.docs,
+            totalPages: result.totalPages,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            page: result.page,
+            hasPrevPage: result.hasPrevPage,
+            hasNextPage: result.hasNextPage,
+            prevLink: `?page=${result.prevPage}&limit=${query.limit}`,
+            nextLink: `?page=${result.nextPage}&limit=${query.limit}`
+        }
+
+        return res.json(response);
+
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
